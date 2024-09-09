@@ -1,0 +1,27 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dl-backend
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - DB_TYPE=$DB_TYPE
+      - DB_HOST=dl-postgres
+      - DB_PORT=$DB_PORT
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_NAME=$DB_NAME
+  db:
+    image: postgres
+    container_name: dl-postgres
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+        POSTGRES_DB: invoice_management
+    ports:
+        - 5432:5432
+    
